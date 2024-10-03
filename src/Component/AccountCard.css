@@ -1,0 +1,64 @@
+.account-card {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    width: 800px;
+  }
+  
+  .account-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .account-card h3 {
+    color: #cc0000; /* Change to your preferred color */
+    margin-bottom: 10px;
+    font-size: 1.5em;
+  }
+  
+  .account-card p {
+    font-size: 1.1em;
+    margin: 5px 0;
+  }
+  
+  .account-card button {
+   
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .modal-content input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .modal-content button {
+    margin-top: 10px;
+    color: #000000;
+  }
+  
+  .alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 320px;
+  }
+  
