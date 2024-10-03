@@ -5,7 +5,7 @@ import "./SignIn.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const SignIn = ({ open, handleClose, openSignUp }) => {
+const SignIn = ({ open, handleClose, openSignUp ,onLogin}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");

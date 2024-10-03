@@ -105,10 +105,10 @@ const AccountCard = ({
         <p>Adhar Card: {adharCard}</p>
         <button onClick={handleRemove}>Remove Account</button>
         <Modal onClose={() => setOpen(false)} onOpen={() => setOpen(true)} open={open} trigger={<Button>Update Account</Button>}>
-          <input type="text" value={nAccountHolderName} onChange={(e) => setNAccountHolderName(e.target.value)} placeholder="Account Holder Name" />
-          <input type="text" value={nAccountType} onChange={(e) => setNAccountType(e.target.value)} placeholder="Account Type" />
-          <input type="number" value={nBalance} onChange={(e) => setNBalance(e.target.value)} placeholder="Balance" />
-          <input type="text" value={nAdharCard} onChange={(e) => setNAdharCard(e.target.value)} placeholder="Adhar Card" />
+          <input type="text" value={nAccountHolderName} onChange={(e) => setNAccountHolderName(e.target.value)} placeholder="Account Holder Name" /><br/>
+          <input type="text" value={nAccountType} onChange={(e) => setNAccountType(e.target.value)} placeholder="Account Type" /><br/>
+          <input type="number" value={nBalance} onChange={(e) => setNBalance(e.target.value)} placeholder="Balance" /><br></br>
+          <input type="text" value={nAdharCard} onChange={(e) => setNAdharCard(e.target.value)} placeholder="Adhar Card" /><br></br>
           <button onClick={handleUpdate}>Confirm</button>
           <button onClick={handleClose}>Cancel</button>
         </Modal>

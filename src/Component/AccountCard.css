@@ -25,7 +25,6 @@
   }
   
   .account-card button {
-   
     color: #000000;
     border: none;
     border-radius: 5px;
@@ -34,6 +33,11 @@
     font-weight: bold;
     margin-right: 10px;
     transition: background-color 0.3s ease;
+    background-color: #f0f0f0; /* Change to preferred background color */
+  }
+  
+  .account-card button:hover {
+    background-color: #e0e0e0; /* Change to preferred hover color */
   }
   
   .modal-content {
@@ -47,11 +51,22 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 1em; /* Increase font size for better readability */
   }
   
   .modal-content button {
     margin-top: 10px;
     color: #000000;
+    background-color: #cc0000; /* Change to preferred background color */
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-content button:hover {
+    background-color: #b30000; /* Change to preferred hover color */
   }
   
   .alert {
@@ -60,5 +75,17 @@
     right: 20px;
     z-index: 1000;
     width: 320px;
+  }
+  
+  .alert.success {
+    background-color: #d4edda; /* Light green for success alerts */
+    color: #155724; /* Dark green text */
+    border: 1px solid #c3e6cb; /* Green border */
+  }
+  
+  .alert.error {
+    background-color: #f8d7da; /* Light red for error alerts */
+    color: #721c24; /* Dark red text */
+    border: 1px solid #f5c6cb; /* Red border */
   }
   

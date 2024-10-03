@@ -9,7 +9,8 @@ import AddAccount from "./Component/AddAccount";
 
 function App() {
   const [isSignUpOpen, setSignUpOpen] = useState(false);
-  const [isSignInOpen, setSignInOpen] = useState(false); 
+  const [isSignInOpen, setSignInOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
   const handleOpenSignUp = () => setSignUpOpen(true);
   const handleCloseSignUp = () => setSignUpOpen(false);
@@ -17,11 +18,20 @@ function App() {
   const handleOpenSignIn = () => setSignInOpen(true); 
   const handleCloseSignIn = () => setSignInOpen(false); 
 
+  const handleLogin = () => {
+    setIsLoggedIn(true); // Set login status to true on successful login
+    handleCloseSignIn(); // Close the SignIn modal
+  };
+
   return (
     <div className="App">
       <div className="button-container">
-        <button onClick={handleOpenSignUp}> Sign Up</button>
-        <button onClick={handleOpenSignIn}> Sign In</button>
+        {!isLoggedIn && ( // Only show buttons if not logged in
+          <>
+            <button onClick={handleOpenSignUp}> Sign Up</button>
+            <button onClick={handleOpenSignIn}> Sign In</button>
+          </>
+        )}
       </div>
 
       <SignUp
@@ -33,6 +43,7 @@ function App() {
         open={isSignInOpen}
         handleClose={handleCloseSignIn}
         openSignUp={handleOpenSignUp} 
+        onLogin={handleLogin} 
       />
 
       <Routes>
