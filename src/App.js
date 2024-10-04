@@ -10,40 +10,40 @@ import AddAccount from "./Component/AddAccount";
 function App() {
   const [isSignUpOpen, setSignUpOpen] = useState(false);
   const [isSignInOpen, setSignInOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
   const handleOpenSignUp = () => setSignUpOpen(true);
   const handleCloseSignUp = () => setSignUpOpen(false);
-  
-  const handleOpenSignIn = () => setSignInOpen(true); 
-  const handleCloseSignIn = () => setSignInOpen(false); 
+
+  const handleOpenSignIn = () => setSignInOpen(true);
+  const handleCloseSignIn = () => setSignInOpen(false);
 
   const handleLogin = () => {
-    setIsLoggedIn(true); // Set login status to true on successful login
+    // Set login status to true on successful login
     handleCloseSignIn(); // Close the SignIn modal
   };
+  const token = localStorage.getItem("token");
 
   return (
     <div className="App">
       <div className="button-container">
-        {!isLoggedIn && ( // Only show buttons if not logged in
+        {!token ? (
           <>
             <button onClick={handleOpenSignUp}> Sign Up</button>
             <button onClick={handleOpenSignIn}> Sign In</button>
           </>
-        )}
+        ) : null}
       </div>
 
       <SignUp
         open={isSignUpOpen}
         handleClose={handleCloseSignUp}
-        handleOpenSignIn={handleOpenSignIn} 
+        handleOpenSignIn={handleOpenSignIn}
       />
       <SignIn
         open={isSignInOpen}
         handleClose={handleCloseSignIn}
-        openSignUp={handleOpenSignUp} 
-        onLogin={handleLogin} 
+        openSignUp={handleOpenSignUp}
+        onLogin={handleLogin}
       />
 
       <Routes>

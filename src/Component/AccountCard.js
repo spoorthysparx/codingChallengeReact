@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal } from "semantic-ui-react";
-import { Alert } from "@mui/material"; 
-import "./AccountCard.css"; 
+import { Alert } from "@mui/material";
+import "./AccountCard.css";
 
 const AccountCard = ({
   accountNumber,
@@ -15,14 +15,19 @@ const AccountCard = ({
   withdraw,
 }) => {
   const [open, setOpen] = useState(false);
-  const [nAccountHolderName, setNAccountHolderName] = useState(accountHolderName);
+  const [nAccountHolderName, setNAccountHolderName] =
+    useState(accountHolderName);
   const [nAccountType, setNAccountType] = useState(accountType);
   const [nBalance, setNBalance] = useState(balance);
   const [nAdharCard, setNAdharCard] = useState(adharCard);
-  const [alertMsg, setAlertMsg] = useState('');
-  const [alertType, setAlertType] = useState('');
+  const [alertMsg, setAlertMsg] = useState("");
+  const [alertType, setAlertType] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  
+
+  const [amount, setAmount] = useState("");
+  const [depositModalOpen, setDepositModalOpen] = useState(false);
+  const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
+
   const handleUpdate = () => {
     const updatedData = {};
 
@@ -44,8 +49,8 @@ const AccountCard = ({
 
     if (Object.keys(updatedData).length > 0) {
       update(accountNumber, updatedData);
-      setAlertType('success');
-      setAlertMsg('Account updated successfully!');
+      setAlertType("success");
+      setAlertMsg("Account updated successfully!");
       setShowAlert(true);
       setTimeout(() => {
         setShowAlert(false);
@@ -64,8 +69,8 @@ const AccountCard = ({
 
   const handleRemove = () => {
     remove(accountNumber);
-    setAlertType('success');
-    setAlertMsg('Account removed successfully!');
+    setAlertType("success");
+    setAlertMsg("Account removed successfully!");
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
@@ -73,18 +78,32 @@ const AccountCard = ({
   };
 
   const handleDeposit = () => {
-    const amount = parseFloat(prompt("Enter amount to deposit:"));
-    if (!isNaN(amount) && amount > 0) {
-      deposit(accountNumber, amount);
+    const depositAmount = parseFloat(amount);
+    if (!isNaN(depositAmount) && depositAmount > 0) {
+      deposit(accountNumber, depositAmount);
+      setAlertType("success");
+      setAlertMsg("Amount deposited successfully!");
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+      setDepositModalOpen(false);
     } else {
       alert("Invalid amount!");
     }
   };
 
   const handleWithdraw = () => {
-    const amount = parseFloat(prompt("Enter amount to withdraw:"));
-    if (!isNaN(amount) && amount > 0) {
-      withdraw(accountNumber, amount);
+    const withdrawAmount = parseFloat(amount);
+    if (!isNaN(withdrawAmount) && withdrawAmount > 0) {
+      withdraw(accountNumber, withdrawAmount);
+      setAlertType("success");
+      setAlertMsg("Amount withdrawn successfully!");
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+      setWithdrawModalOpen(false);
     } else {
       alert("Invalid amount!");
     }
@@ -93,7 +112,15 @@ const AccountCard = ({
   return (
     <>
       {showAlert && (
-        <div style={{ position: "fixed", top: "20px", right: "20px", zIndex: 1000, width: "320px" }}>
+        <div
+          style={{
+            position: "fixed",
+            top: "20px",
+            right: "20px",
+            zIndex: 1000,
+            width: "320px",
+          }}
+        >
           <Alert severity={alertType}>{alertMsg}</Alert>
         </div>
       )}
@@ -104,16 +131,93 @@ const AccountCard = ({
         <p>Balance: {balance}</p>
         <p>Adhar Card: {adharCard}</p>
         <button onClick={handleRemove}>Remove Account</button>
-        <Modal onClose={() => setOpen(false)} onOpen={() => setOpen(true)} open={open} trigger={<Button>Update Account</Button>}>
-          <input type="text" value={nAccountHolderName} onChange={(e) => setNAccountHolderName(e.target.value)} placeholder="Account Holder Name" /><br/>
-          <input type="text" value={nAccountType} onChange={(e) => setNAccountType(e.target.value)} placeholder="Account Type" /><br/>
-          <input type="number" value={nBalance} onChange={(e) => setNBalance(e.target.value)} placeholder="Balance" /><br></br>
-          <input type="text" value={nAdharCard} onChange={(e) => setNAdharCard(e.target.value)} placeholder="Adhar Card" /><br></br>
-          <button onClick={handleUpdate}>Confirm</button>
-          <button onClick={handleClose}>Cancel</button>
+
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          trigger={
+            <Button onClick={() => setOpen(true)}>Update Account</Button>
+          }
+        >
+          <Modal.Header>Update Account Details</Modal.Header>
+          <Modal.Content>
+            <input
+              type="text"
+              value={nAccountHolderName}
+              onChange={(e) => setNAccountHolderName(e.target.value)}
+              placeholder="Account Holder Name"
+            />
+            <br />
+            <input
+              type="text"
+              value={nAccountType}
+              onChange={(e) => setNAccountType(e.target.value)}
+              placeholder="Account Type"
+            />
+            <br />
+            <input
+              type="number"
+              value={nBalance}
+              onChange={(e) => setNBalance(e.target.value)}
+              placeholder="Balance"
+            />
+            <br />
+            <input
+              type="text"
+              value={nAdharCard}
+              onChange={(e) => setNAdharCard(e.target.value)}
+              placeholder="Adhar Card"
+            />
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={handleUpdate}>Confirm</Button>
+            <Button onClick={() => setOpen(false)}>Cancel</Button>
+          </Modal.Actions>
         </Modal>
-        <button onClick={handleDeposit}>Deposit</button>
-        <button onClick={handleWithdraw}>Withdraw</button>
+
+        <Modal
+          open={depositModalOpen}
+          onClose={() => setDepositModalOpen(false)}
+          trigger={
+            <Button onClick={() => setDepositModalOpen(true)}>Deposit</Button>
+          }
+        >
+          <Modal.Header>Deposit Amount</Modal.Header>
+          <Modal.Content>
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="Enter amount to deposit"
+            />
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={handleDeposit}>Confirm</Button>
+            <Button onClick={() => setDepositModalOpen(false)}>Cancel</Button>
+          </Modal.Actions>
+        </Modal>
+
+        <Modal
+          open={withdrawModalOpen}
+          onClose={() => setWithdrawModalOpen(false)}
+          trigger={
+            <Button onClick={() => setWithdrawModalOpen(true)}>Withdraw</Button>
+          }
+        >
+          <Modal.Header>Withdraw Amount</Modal.Header>
+          <Modal.Content>
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="Enter amount to withdraw"
+            />
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={handleWithdraw}>Confirm</Button>
+            <Button onClick={() => setWithdrawModalOpen(false)}>Cancel</Button>
+          </Modal.Actions>
+        </Modal>
       </div>
     </>
   );
